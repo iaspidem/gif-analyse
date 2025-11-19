@@ -1,7 +1,7 @@
 # import pillow
 from PIL import Image
 
-img = Image.open("data/Steam-SunsetCruise/Artwork_Featured.gif")
+img = Image.open("data/delorean-retroloop.gif")
 
 duration = 0
 
