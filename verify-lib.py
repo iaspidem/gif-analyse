@@ -19,11 +19,14 @@ def pillow_fn(filepath):
 def imageio_fn(filepath):
     gif = imageio.get_reader(filepath)
     duration = 0
+    frame_counter = 0
 
     for frame in gif:
+        frame_counter +=1
         duration += gif.get_meta_data(index=frame)["duration"]
+        fps = frame_counter / (duration / 1000)
 
-    return duration
+    return duration, frame_counter, fps
 
 def verify_fn(dir):
     folder_path = r"data/"
@@ -31,14 +34,18 @@ def verify_fn(dir):
     for path, folders, files in os.walk(dir):
         # Open file
         for filename in files:
+            print("===============================================")
             print(f"{filename}")
             filepath = str(folder_path) + filename
             #print(f"Filepath: {filepath}")
 
             dur1 = pillow_fn(filepath)
-            dur2 = imageio_fn(filepath)
+            dur2, frame_counter, fps = imageio_fn(filepath)
             if dur1 == dur2:
                 print(f"Duration: {dur1} ms")
+                print(f"Total number of frames: {frame_counter} frames")
+                print(f"Frames per second: {fps} fps")
+                print("===============================================")
                 print()
             else:
                 print(f"ERROR: {dur1}ms vs {dur2}ms")
