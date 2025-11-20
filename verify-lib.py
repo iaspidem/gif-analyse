@@ -2,7 +2,8 @@ import os
 from PIL import Image
 import imageio
 
-def pillow_fn(img):
+def pillow_fn(filepath):
+    img = Image.open(filepath)
     duration = 0
 
     while True:
@@ -15,7 +16,8 @@ def pillow_fn(img):
 
     return duration
 
-def imageio_fn(gif):
+def imageio_fn(filepath):
+    gif = imageio.get_reader(filepath)
     duration = 0
 
     for frame in gif:
@@ -24,22 +26,32 @@ def imageio_fn(gif):
     return duration
 
 def verify_fn(dir):
-    folder_path = ""
+    folder_path = r"data/"
 
     for path, folders, files in os.walk(dir):
         # Open file
         for filename in files:
             print(f"{filename}")
-            filepath = str(folder_path) + "/" + filename
+            filepath = str(folder_path) + filename
             print(f"Filepath: {filepath}")
+
+            dur1 = pillow_fn(filepath)
+            dur2 = imageio_fn(filepath)
+            if dur1 == dur2:
+                print(f"Duration: {dur1} ms")
+                print()
+            else:
+                print(f"ERROR: {dur1}ms vs {dur2}ms")
+                return
 
         for folder_name in folders:
             print(f"Content of '{folder_name}'")
             # List content from folder
             print(os.listdir(f"{path}/{folder_name}"))
             print()
-            folder_path = str(f"{path}/{folder_name}")
-    #break   
+            folder_path = str(f"{path}/{folder_name}") + "/"
+    
+    print("Processing complete.")
 
 # Assign directory
 dir = r"data"
