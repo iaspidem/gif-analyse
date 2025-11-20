@@ -24,17 +24,21 @@ def imageio_fn(gif):
     return duration
 
 def verify_fn(dir):
+    folder_path = ""
+
     for path, folders, files in os.walk(dir):
         # Open file
         for filename in files:
             print(f"{filename}")
-            #print(f"Filepath: {filepath}")
+            filepath = str(folder_path) + "/" + filename
+            print(f"Filepath: {filepath}")
 
         for folder_name in folders:
             print(f"Content of '{folder_name}'")
             # List content from folder
             print(os.listdir(f"{path}/{folder_name}"))
             print()
+            folder_path = str(f"{path}/{folder_name}")
     #break   
 
 # Assign directory
