@@ -33,7 +33,7 @@ def verify_fn(dir):
         for filename in files:
             print(f"{filename}")
             filepath = str(folder_path) + filename
-            print(f"Filepath: {filepath}")
+            #print(f"Filepath: {filepath}")
 
             dur1 = pillow_fn(filepath)
             dur2 = imageio_fn(filepath)
