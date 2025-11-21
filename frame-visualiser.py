@@ -1,16 +1,13 @@
+import os
+import math
 import imageio
 from PIL import Image
 
 filepath = "data/delorean-retroloop.gif"
 
-# check number of frames
-gif = imageio.get_reader(filepath)
-frame_counter = 0
-
-for frame in gif:
-    frame_counter +=1
-
-print(f"Number of frames (imageio): {frame_counter}")
+file_size = os.path.getsize(filepath)
+print(f"Raw file size: {file_size} bytes")
+print(f"File size: {int(round(file_size / 1024, 0))} KB ({round(file_size / pow(1024, 2), 2)} MB)")
 
 img = Image.open(filepath)
 print("Number of frames (n_frames): " + str(img.n_frames))

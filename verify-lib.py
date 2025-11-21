@@ -1,4 +1,5 @@
 import os
+import math
 from PIL import Image
 import imageio
 
@@ -34,9 +35,14 @@ def verify_fn(dir):
         # Open file
         for filename in files:
             print("===============================================")
-            print(f"{filename}")
+            print(f"{filename}\n")
             filepath = str(folder_path) + filename
             #print(f"Filepath: {filepath}")
+
+            file_size = os.path.getsize(filepath)
+            print(f"Raw file size: {file_size} bytes")
+            print(f"File size: {int(round(file_size / 1024, 0))} KB ({round(file_size / pow(1024, 2), 2)} MB)")
+
 
             dur1, frame_count, fps = pillow_fn(filepath)
             dur2 = imageio_fn(filepath)
