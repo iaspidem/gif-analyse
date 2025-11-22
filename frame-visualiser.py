@@ -12,8 +12,10 @@ print(f"File size: {int(round(file_size / 1024, 0))} KB ({round(file_size / pow(
 img = Image.open(filepath)
 print("Number of frames (n_frames): " + str(img.n_frames))
 
-#img_start = img.seek(0)
-#img_start.save("output/img_start.png")
+img.seek(0)
+img.save("output/img_begin.png")
+img.seek(img.n_frames - 1)
+img.save("output/img_end.png")
 
 #frames = []
 #frames.append(img.seek(0))
